@@ -5,7 +5,7 @@ class Play extends Phaser.Scene {
 
     preload() {
         // load images/tile sprites
-        this.load.image('rocket', './assets/rocket.png');
+        this.load.image('rocket', './assets/arrow.png');
         this.load.image('spaceship', './assets/heart.png');
         this.load.image('starfield', './assets/pinkSky.png');
         
@@ -53,7 +53,7 @@ class Play extends Phaser.Scene {
         let scoreConfig = {
             fontFamily: 'Courier',
             fontSize: '28px',
-            backgroundColor: '#F3B141',
+            //backgroundColor: '#F3B141',
             color: '#843605',
             align: 'right',
             padding: {
