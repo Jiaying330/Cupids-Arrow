@@ -19,9 +19,9 @@ class Menu extends Phaser.Scene {
       // this.bgm.play();
       this.starfield = this.add.tileSprite(0, 0, 640, 480, 'starfield').setOrigin(0, 0);
         // menu display
-        let menuConfig = {
-            fontFamily: 'Courier',
-            fontSize: '28px',
+        let menuConfig1 = {
+            fontFamily: 'Trattatello',//'Snell Roundhand',//'Courier',
+            fontSize: '43px',
             //backgroundColor: '#FFC9D6',
             color: '#843605',
             align: 'right',
@@ -31,12 +31,23 @@ class Menu extends Phaser.Scene {
             },
             fixedWidth: 0
         }
+        let menuConfig2 = {
+          fontFamily: 'Snell Roundhand',//'Snell Roundhand',//'Courier',
+          fontSize: '28px',
+          //backgroundColor: '#FFC9D6',
+          color: '#843605',
+          align: 'right',
+          padding: {
+              top: 5,
+              bottom: 5,
+          },
+          fixedWidth: 0
+      }
         // show menu text
-        this.add.text(game.config.width/2, game.config.height/2 - borderUISize - borderPadding, 'CUPIDS ARROW', menuConfig).setOrigin(0.5);
-        this.add.text(game.config.width/2, game.config.height/2, 'Use ←→ arrows to move & (F) to Shot', menuConfig).setOrigin(0.5);
-        //menuConfig.backgroundColor = '#FFC9D6';
-        menuConfig.color = '#000';
-        this.add.text(game.config.width/2, game.config.height/2 + borderUISize + borderPadding, 'Press ← for Novice or → for Expert', menuConfig).setOrigin(0.5);  
+        this.add.text(game.config.width/2, game.config.height/2 - borderUISize - borderPadding, 'CUPIDS ARROW', menuConfig1).setOrigin(0.5);
+        this.add.text(game.config.width/2, game.config.height/2, 'Use ←→ arrows to move & (F) to Shot', menuConfig2).setOrigin(0.5);
+        menuConfig2.color = '#000';
+        this.add.text(game.config.width/2, game.config.height/2 + borderUISize + borderPadding, 'Press ← for Novice or → for Expert', menuConfig2).setOrigin(0.5);  
         
         // define keys
         keyLEFT = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.LEFT);
