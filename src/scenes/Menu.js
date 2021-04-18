@@ -8,15 +8,10 @@ class Menu extends Phaser.Scene {
         this.load.audio('sfx_select', './assets/blip_select12.wav');
         this.load.audio('sfx_explosion', './assets/explosion.wav');
         this.load.audio('sfx_rocket', './assets/shot.wav');
-        this.load.audio('bgm', './assets/bensound-ukulele.wave');
         this.load.image('starfield', './assets/pinkSky.png');
     }
 
     create() {
-      // //bgm
-      // this.bgm = game.sound.add('bgm');
-      // this.bgm.loop = true;
-      // this.bgm.play();
       this.starfield = this.add.tileSprite(0, 0, 640, 480, 'starfield').setOrigin(0, 0);
         // menu display
         let menuConfig1 = {
