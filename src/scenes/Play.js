@@ -8,12 +8,19 @@ class Play extends Phaser.Scene {
         this.load.image('rocket', './assets/arrow.png');
         this.load.image('spaceship', './assets/heart.png');
         this.load.image('starfield', './assets/pinkSky.png');
+        this.load.image('spaceship2', './assets/halfHeart.png');
         
         // load spritesheet
         this.load.spritesheet('explosion', './assets/heartExplo.png', {frameWidth: 190, frameHeight: 190, startFrame: 0, endFrame: 4});
     }
 
     create() {
+        //bgm
+    //   this.bgm = game.sound.add('bgm');
+    //   this.bgm.loop = true;
+    // //   this.bgm.play();
+    //     this.bgm = this.sound.add('bgm');
+    //     this.bgm.play();
         // place tile sprite
         this.starfield = this.add.tileSprite(0, 0, 640, 480, 'starfield').setOrigin(0, 0);
 
@@ -32,6 +39,7 @@ class Play extends Phaser.Scene {
         this.ship01 = new Spaceship(this, game.config.width + borderUISize*6, borderUISize*4, 'spaceship', 0, 30).setOrigin(0, 0);
         this.ship02 = new Spaceship(this, game.config.width + borderUISize*3, borderUISize*5 + borderPadding*2, 'spaceship', 0, 20).setOrigin(0,0);
         this.ship03 = new Spaceship(this, game.config.width, borderUISize*6 + borderPadding*4, 'spaceship', 0, 10).setOrigin(0,0);
+        this.ship04 = new Spaceship(this, game.config.width + borderUISize*6, borderUISize*4, 'spaceship', 0, 25).setOrigin(0, 0);
 
         // define keys
         keyF = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.F);
@@ -48,6 +56,8 @@ class Play extends Phaser.Scene {
 
         // score
         this.p1Score = 0;
+        this.highestScore = 0;
+
        
         // score display
         let scoreConfig = {
@@ -65,6 +75,7 @@ class Play extends Phaser.Scene {
         this.scoreLeft = this.add.text(borderUISize + borderPadding, borderUISize + borderPadding*2, this.p1Score, scoreConfig);
         this.timeRemain = this.game.settings.gameTimer/1000;
         this.timeRemainingRight = this.add.text(470, 54, this.timeRemain, scoreConfig);
+        this.highScoreMiddle = this.add.text(250, 54, this.highestScore, scoreConfig);
 
         // game over flag
         this.gameOver = false;
@@ -75,6 +86,7 @@ class Play extends Phaser.Scene {
         this.clock = this.time.delayedCall(game.settings.gameTimer, () => {
             this.timeRemain = 0;
             this.timeRemainingRight.text = this.timeRemain;
+            // this.highScoreMiddle.text = this.highestScore;
             this.add.text(game.config.width/2, game.config.height/2, 'GAME OVER', scoreConfig).setOrigin(0.5);
             this.add.text(game.config.width/2, game.config.height/2 + 64, '(Press (R) to Restart or ← for Menu', scoreConfig).setOrigin(0.5);
             this.gameOver = true;
@@ -93,7 +105,11 @@ class Play extends Phaser.Scene {
         this.starfield.tilePositionX -= starSpeed;  // scroll tile sprite
         if (!this.gameOver) {   
             this.timeRemain = this.timeRemain - .016666666666667;
-            this.timeRemainingRight.text = this.timeRemain;            
+            this.timeRemainingRight.text = this.timeRemain;     
+            if(this.highestScore < this.p1Score) {
+                this.highestScore = this.p1Score;  
+                this.highScoreMiddle.text = this.highestScore;  
+            }   
             this.p1Rocket.update();         // update rocket sprite
             this.ship01.update();           // update spaceships (x3)
             this.ship02.update();
@@ -111,6 +127,10 @@ class Play extends Phaser.Scene {
         if (this.checkCollision(this.p1Rocket, this.ship01)) {
             this.p1Rocket.reset();
             this.shipExplode(this.ship01);
+        }
+        if (this.checkCollision(this.p1Rocket, this.ship04)) {
+            this.p1Rocket.reset();
+            this.shipExplode(this.ship04);
         }
     }
 
@@ -139,8 +159,10 @@ class Play extends Phaser.Scene {
         
         // score increment and repaint
         this.p1Score += ship.points;
-        this.scoreLeft.text = this.p1Score;     
-        
+        if(ship == this.ship04) {
+            this.p1Score += 10;  
+        }
+        this.scoreLeft.text = this.p1Score; 
         // play sound
         this.sound.play('sfx_explosion');  
     }

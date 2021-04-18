@@ -8,11 +8,15 @@ class Menu extends Phaser.Scene {
         this.load.audio('sfx_select', './assets/blip_select12.wav');
         this.load.audio('sfx_explosion', './assets/explosion.wav');
         this.load.audio('sfx_rocket', './assets/shot.wav');
-        // this.load.audio('sfx_ukulele', './assets/bensound-ukulele.wave');
+        this.load.audio('bgm', './assets/bensound-ukulele.wave');
         this.load.image('starfield', './assets/pinkSky.png');
     }
 
     create() {
+      // //bgm
+      // this.bgm = game.sound.add('bgm');
+      // this.bgm.loop = true;
+      // this.bgm.play();
       this.starfield = this.add.tileSprite(0, 0, 640, 480, 'starfield').setOrigin(0, 0);
         // menu display
         let menuConfig = {
@@ -38,10 +42,7 @@ class Menu extends Phaser.Scene {
         keyLEFT = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.LEFT);
         keyRIGHT = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.RIGHT);
         
-        //bgm
-        // this.bgm = game.sound.add('sfx_ukulele');
-        // this.bgm.loop = true;
-        // this.bgm.play();
+        
     }
 
     update() {
